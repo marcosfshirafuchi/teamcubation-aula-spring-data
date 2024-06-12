@@ -11,4 +11,4 @@
         -> 1) Consultar se o curso existe?<br>
         -> 2) Se existe, atualizar a informação<br>
         -> 3) se nao existe lançar excecao que nao existe<br>
-        -> 4) se salvou com sucesso retorna o course atualiza<br>
+        -> 4) se salvou com sucesso retorna o course atualizado<br>
