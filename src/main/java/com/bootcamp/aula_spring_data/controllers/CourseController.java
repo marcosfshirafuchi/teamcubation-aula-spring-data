@@ -66,16 +66,15 @@ public class CourseController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id,@RequestBody CourseDto courseDto){
-        try{
-            this.courseService.buscarPorId(id);
-            Course course = new Course();
-            course.setName(courseDto.name());
-            course.setDescription(courseDto.description());
-            return ResponseEntity.status(HttpStatus.UPGRADE_REQUIRED)
-                    .body(this.courseService.salvar(course));
-        }catch (EntityNotFoundException ex){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Curso nao encontrado");
-        }
+            Optional<Course> courseExiste = this.courseService.buscarPorId(id);
+            if (courseExiste.isEmpty()){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Curso não encontrado com o ID: " + id);
+            }else {
+                Course course = courseExiste.get();
+                course.setName(courseDto.name());
+                course.setDescription(courseDto.description());
+                return ResponseEntity.status(HttpStatus.OK).body(course);
+            }
     }
 
 }
